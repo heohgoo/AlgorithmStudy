@@ -1,19 +1,13 @@
+#그리디
+#0은 뒤부터, 1은 앞부터 지운다.
 string = list(input())
+zero = string.count('0')//2
+one = string.count('1')//2
 
+for _ in range(zero):
+    string.pop(-string[::-1].index('0')-1)
 
-def tanos(arr):
-    zero = 0
-    one = 0
-    result = ''
-    for i in range(len(arr)):
-        if arr[i] == '0':
-            zero += 1
-        else:
-            one += 1
+for _ in range(one):
+    string.pop(string.index('1'))
 
-    result += '0'*(zero//2)
-    result += '1'*(one//2)
-    return result
-    
-
-print(tanos(string))
+print("".join(string))
