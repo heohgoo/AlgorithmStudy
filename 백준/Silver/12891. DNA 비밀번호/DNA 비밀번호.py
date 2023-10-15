@@ -8,45 +8,21 @@ def isTrue(arr1, arr2):
 s, p = map(int, input().split())
 dna = list(input())
 condition = list(map(int, input().split())) #A, C, G, T
-compare = [0]*4
+compare = {'A':0, 'C':0, 'G':0, 'T':0}
 ans = 0
 
 password = dna[:p]
 
 for w in password:
-    if w == 'A':
-        compare[0] += 1
-    elif w == 'C':
-        compare[1] += 1
-    elif w == 'G':
-        compare[2] += 1
-    else:
-        compare[3] += 1
+    compare[w] += 1
 
-if isTrue(condition, compare):
+if isTrue(condition, list(compare.values())):
     ans += 1
 
 for i in range(p, s):
-    if dna[i-p] == 'A':
-        compare[0] -= 1
-    elif dna[i-p] == 'C':
-        compare[1] -= 1
-    elif dna[i-p] == 'G':
-        compare[2] -= 1
-    else:
-        compare[3] -= 1   
-    
-
-    if dna[i] == 'A':
-        compare[0] += 1
-    elif dna[i] == 'C':
-        compare[1] += 1
-    elif dna[i] == 'G':
-        compare[2] += 1
-    else:
-        compare[3] += 1
-    
-    if isTrue(condition, compare):
+    compare[dna[i-p]] -= 1
+    compare[dna[i]] += 1
+    if isTrue(condition, list(compare.values())):
         ans += 1
 
 print(ans)
