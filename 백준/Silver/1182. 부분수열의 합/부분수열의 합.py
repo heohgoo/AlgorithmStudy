@@ -1,21 +1,19 @@
-#브루트포스(조합)
-from itertools import combinations
+n, s = map(int,input().split())
+n_list = list(map(int,input().split()))
 
-n, s = map(int, input().split())
-num_list = list(map(int, input().split()))
-ans = 0
+cnt = 0
 
-combi = []
+def dfs(num,sum):
+	global cnt
+	if num >= n:
+		return
+	sum += n_list[num]
+	if sum == s:
+		cnt += 1
 
-for i in range(1, n+1):
-    combi.append(list(combinations(num_list, i)))
 
-for tup in combi:
-    if tup:
-        for i in tup:
-            tmp = 0
-            tmp = sum(i)
-            if tmp == s:
-                ans += 1
+	dfs(num+1,sum)
+	dfs(num+1,sum-n_list[num])
 
-print(ans)
+dfs(0,0)
+print(cnt)
