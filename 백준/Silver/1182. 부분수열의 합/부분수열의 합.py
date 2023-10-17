@@ -1,19 +1,24 @@
-n, s = map(int,input().split())
-n_list = list(map(int,input().split()))
+#백트래킹
+n, s = map(int, input().split())
+num_list = list(map(int, input().split()))
+ans = 0
 
-cnt = 0
+def dfs(idx, sub_sum):
+    global ans
 
-def dfs(num,sum):
-	global cnt
-	if num >= n:
-		return
-	sum += n_list[num]
-	if sum == s:
-		cnt += 1
+    if idx >= n:
+        return
+    
+    sub_sum += num_list[idx]
 
+    if sub_sum == s:
+        ans += 1
 
-	dfs(num+1,sum)
-	dfs(num+1,sum-n_list[num])
+    #해당 idx를 선택한 경우
+    dfs(idx+1, sub_sum)
 
-dfs(0,0)
-print(cnt)
+    #해당 idx를 선택하지 않는 경우
+    dfs(idx+1, sub_sum - num_list[idx])
+
+dfs(0, 0)
+print(ans)
